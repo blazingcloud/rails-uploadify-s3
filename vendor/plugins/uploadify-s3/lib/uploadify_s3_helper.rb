@@ -1,9 +1,10 @@
 module UploadifyS3Helper
   
   def javascript_uploadify_s3_tag(options = {})
+    options = default_options.merge(options)
     javascript_tag( %(
   		$(document).ready(function() {
-  			$("#uploadify").uploadify({
+  			$("#{options[:file_input_selector]}").uploadify({
   				'fileDataName' : 'file',
   				'uploader'       : '/flash/uploadify/uploadify.swf',
   				'script'         : "<%= bucket_url %>",
@@ -11,10 +12,10 @@ module UploadifyS3Helper
   				'folder'         : '#{upload_path}',
   				'auto'           : true,
   				'multi'          : false,
-  				'buttonText'		 : 'Add Video',
+  				'buttonText'		 : '#{options[:button_text]}',
   				'sizeLimit'			 : '#{max_filesize}',
-  				'fileDesc'		   : 'Please choose your .mov movie file',				
-  				'fileExt'				 : '*.mov',
+  				'fileDesc'		   : '#{options[:file_desc]}',				
+  				'fileExt'				 : '#{options[:file_ext]}',
   				'onError' 			 : function (a, b, c, d) {
   					if (d.info == 201) {
   						$('#VideoGallery').html("<video src='http://genie-images.s3.amazonaws.com/uploads/" + c.name +"' width='350' height='350' controls='yes'></video>");
@@ -36,8 +37,6 @@ module UploadifyS3Helper
   			});
   		});
     ))
-    
-    # <div id="video-upload"><input type="file" name="uploadify" id="uploadify" /></div>		
   end
   
   def uploadify_s3(options = {})
@@ -114,4 +113,14 @@ module UploadifyS3Helper
   def expiration_date
    10.hours.from_now.utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
   end  
+  
+  def default_options
+    {
+      :button_text => 'Add File',
+      :file_ext => '*.*',
+      :file_input_selector => '#file_upload',
+      :file_desc => 'Please choose your file'
+      }
+  end
+  
 end
