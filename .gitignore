@@ -1,2 +1,2 @@
 config/amazon_s3.yml
-logs/*
+log/*
