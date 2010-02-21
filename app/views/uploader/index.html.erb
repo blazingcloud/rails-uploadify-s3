@@ -1,13 +1,14 @@
 <html>
 	<head>
-		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js'%>
+		<%= javascript_include_tag 'jquery'%>
 	</head>
 	<body>	
 		<%= uploadify_s3({
 				:file_input_selector => '#file_uploader',
 				:button_text => 'Add Video',
 				:file_ext => '*.mov',
-				:file_desc => 'Please choose your .mov video file'}) %>
+				:file_desc => 'Please choose your .mov video file',
+				:on_success => 'function(f) {alert("done!");}'}) %>
 		<div id="video-upload"><input type="file" name="uploadify" id="file_uploader" /></div>		
 	</body>
 </html>
