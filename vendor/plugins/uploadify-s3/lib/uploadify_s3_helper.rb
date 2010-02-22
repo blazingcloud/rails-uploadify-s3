@@ -18,8 +18,14 @@ module UploadifyS3Helper
   				'fileExt'				 : '#{options[:file_ext]}',
   				'onError' 			 : function (a, b, c, d) {
   					if (d.info == 201) {
+  					  fileInfo = {
+  					    'name' : c.name,
+  					    'size' : c.size,
+  					    'type' : c.type,
+  					    'url'  : '#{bucket_url}#{upload_path}/' + c.name
+  					  };  					  
   					  var onsucc = (#{options[:on_success]});
-  					  onsucc(c);
+  					  onsucc(fileInfo);
   						$('#{options[:file_input_selector]}').hide();
   						return false;
   					} else {
@@ -123,5 +129,4 @@ module UploadifyS3Helper
       :file_desc => 'Please choose your file'
       }
   end
-  
 end
