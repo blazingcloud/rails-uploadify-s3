@@ -10,7 +10,8 @@
 				:file_ext => '*.mov',
 				:on_success => "
 					function(f) {
-						$('#VideoGallery').html('<video height=\"250\" width=\"250\" src=\"#{bucket_url}uploads/' + f.name + '\" controls=\"true\"></video>');
+						$('#VideoGallery').html('<video height=\"250\" width=\"250\" src=\"' + f.url + '\" controls=\"true\"></video><div>' + c.size + ' ' + c.type + '</div>');
+						$('video-upload').hide();
 					}"}) %>
 		<div id="video-upload"><input type="file" name="uploadify" id="file_uploader" /></div>		
 	</body>
