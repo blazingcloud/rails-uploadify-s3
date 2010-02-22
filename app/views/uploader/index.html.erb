@@ -3,12 +3,15 @@
 		<%= javascript_include_tag 'jquery'%>
 	</head>
 	<body>	
+		<div id="VideoGallery" style="display; none;"></div>
 		<%= uploadify_s3({
 				:file_input_selector => '#file_uploader',
 				:button_text => 'Add Video',
 				:file_ext => '*.mov',
-				:file_desc => 'Please choose your .mov video file',
-				:on_success => 'function(f) {alert("done!");}'}) %>
+				:on_success => "
+					function(f) {
+						$('#VideoGallery').html('<video height=\"250\" width=\"250\" src=\"#{bucket_url}uploads/' + f.name + '\" controls=\"true\"></video>');
+					}"}) %>
 		<div id="video-upload"><input type="file" name="uploadify" id="file_uploader" /></div>		
 	</body>
 </html>
