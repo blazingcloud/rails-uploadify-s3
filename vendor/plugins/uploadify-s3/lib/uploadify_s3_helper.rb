@@ -7,7 +7,7 @@ module UploadifyS3Helper
   			$("#{options[:file_input_selector]}").uploadify({
   				'fileDataName' : 'file',
   				'uploader'       : '/flash/uploadify/uploadify.swf',
-  				'script'         : "<%= bucket_url %>",
+  				'script'         : '#{bucket_url}',
   				'cancelImg'      : '/images/uploadify/cancel.png',
   				'folder'         : '#{upload_path}',
   				'auto'           : true,
@@ -18,8 +18,9 @@ module UploadifyS3Helper
   				'fileExt'				 : '#{options[:file_ext]}',
   				'onError' 			 : function (a, b, c, d) {
   					if (d.info == 201) {
-  						$('#VideoGallery').html("<video src='http://genie-images.s3.amazonaws.com/uploads/" + c.name +"' width='350' height='350' controls='yes'></video>");
-  						$('#video-upload').hide();
+  					  var onsucc = (#{options[:on_success]});
+  					  onsucc(c);
+  						$('#{options[:file_input_selector]}').hide();
   						return false;
   					} else {
   						alert('error '+d.type+": "+d.text);
@@ -31,7 +32,7 @@ module UploadifyS3Helper
              'acl': '#{acl}',
              'policy': '#{s3_policy}',
   					 'success_action_status': '201',
-             'signature': '{s3_signature}',
+             'signature': '#{s3_signature}',
         		 'Content-Type': ''
             }        
   			});
@@ -64,11 +65,11 @@ module UploadifyS3Helper
           {'success_action_status': '201'},
           ['starts-with','$folder',''],
           ['starts-with','$Filename',''],
-          ['starts-with','$content-type',''],
           ['starts-with','$fileext',''],
         ]
       }"
 
+      puts policy_doc
       Base64.encode64(policy_doc).gsub("\n","")
   end
  
