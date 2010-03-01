@@ -1,0 +1,3 @@
+bucket_name: BUCKET_NAME
+access_key_id: KEY
+secret_access_key: SECRET
