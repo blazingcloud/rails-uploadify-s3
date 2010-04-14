@@ -75,12 +75,11 @@ module UploadifyS3Helper
         ]
       }"
 
-      puts policy_doc
-      Base64.encode64(policy_doc).gsub("\n","")
+    Base64.encode64(policy_doc).gsub("\n","")
   end
  
   def s3_signature
-    Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), aws_secret_key, s3_policy)).gsub("\n","")
+    CGI.escape(Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), aws_secret_key, s3_policy)).gsub("\n",""))
   end
 
   private
