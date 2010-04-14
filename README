@@ -1,6 +1,0 @@
-An example rails app to demonstrate use of uploadify-s3
---
- 
-To run rename config/amazon_s3.yml.template to config/amazon_s3.yml and update the config variables within.
-
-

@@ -1,0 +1,19 @@
+= Uploadify S3 Rails Example
+
+This rails app shows how to use the uploadify-s3 (http://github.com/contrast/uploadify-s3) rails plugin to upload files directly to Amazon S3 rather than going via your rails app.
+
+
+== Usage
+* Rename `config/amazon_s3.yml.template` to `config/amazon_s3.yml` and update the config variables within for your S3 bucket.
+
+== Requirements                               
+* You need a .mov file to test
+* This very simple example uploads a .mov file to S3 and allows it to then view that file in your browse.
+* This demo only works in Safari (as safari nativly supports .mov video)
+* This demo is not a recommended way to support cross browser web based video. For that you need to properly transcode your video. 
+
+
+
+
+
+
