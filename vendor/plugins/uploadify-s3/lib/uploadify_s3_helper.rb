@@ -29,7 +29,10 @@ module UploadifyS3Helper
   						$('#{options[:file_input_selector]}').hide();
   						return false;
   					} else {
-  						alert('error '+d.type+": "+d.text);
+              var onerror = (#{options[:on_error]});
+              if (onerror) {
+                onerror(d.type, d.text);                
+              }              
   					}
   				},				
           'scriptData' 		 : {
